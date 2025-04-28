@@ -23,7 +23,7 @@ st.markdown("### Check to see if a job posting might be fake")
 
 st.write("---")
 
-# Sidebar fun
+# Sidebar
 st.sidebar.image("https://media.giphy.com/media/26gsiCIKW7ANEmxKE/giphy.gif", use_container_width=True)
 st.sidebar.markdown("#### **How it works:**")
 st.sidebar.markdown("This tool checks job postings using the text (title, description, etc.) \n" 
@@ -31,14 +31,22 @@ st.sidebar.markdown("This tool checks job postings using the text (title, descri
 
 st.sidebar.markdown("---")
 
-st.sidebar.markdown("#### **Binary Field Explanations:**")
-st.sidebar.markdown("- **Title Missing:** No job title provided.\n"
-                    "- **Company Profile Missing:** No company profile provided.\n"
-                    "- **Description Missing:** No job description provided.\n"
-                    "- **Requirements Missing:** No requirements listed.\n"
-                    "- **Benefits Missing:** No benefits listed.")
+st.sidebar.markdown("#### **Missing‑Field Flags:**")
+st.sidebar.markdown(
+    "- **Title Missing:** No job title provided.\n"
+    "- **Company Profile Missing:** No company profile provided.\n"
+    "- **Description Missing:** No job description provided.\n"
+    "- **Requirements Missing:** No requirements listed.\n"
+    "- **Benefits Missing:** No benefits listed.")
 
-st.sidebar.markdown("(Missing details = fishy behavior 🐟)")
+st.sidebar.markdown("#### **Posting Flags (numeric):**")
+st.sidebar.markdown(
+    "- **Telecommuting (0/1):** Is the role remote? **0 = No, 1 = Yes**"
+    "- **Has Company Logo (0/1):** Listing shows a company logo? **0 = Doesn’t have, 1 = Has**"
+    "- **Has Screening Questions (0/1):** Includes applicant questions? **0 = Doesn’t have, 1 = Has**")
+
+
+st.sidebar.markdown("(Missing details? Hmmm... this seems fishy!)")
 
 # Form for user input
 st.subheader("Fill out the job posting details:")
@@ -99,14 +107,12 @@ if submitted:
     st.subheader("Results:")
 
     if prediction[0] == 1:
-        st.error("\n# ⚡ ALERT: This posting looks suspicious!")
+        st.error("\n# ALERT: This posting looks suspicious!")
         st.markdown("Beware of jobs with missing details, vague descriptions, or promises that sound too good to be true.\n"
                     "Scammers love lazy job listings.")
-        st.image("https://media.giphy.com/media/3o7aCSPqXE5C6T8tBC/giphy.gif", use_container_width=True)
     else:
         st.success("\n# ✅ This posting looks normal!")
         st.markdown("Always double-check, but this one seems legit based on the details provided.")
-        st.image("https://media.giphy.com/media/3orieUe6ejxSFxYCXe/giphy.gif", use_container_width=True)
 
     st.write("---")
 
